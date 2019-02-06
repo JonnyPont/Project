@@ -4,10 +4,10 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # Non code files
-C:/Users/jonpo/Uni/Year 4/Project/Data/
-C:/Users/jonpo/Uni/Year 4/Project/Images/
-C:/Users/jonpo/Uni/Year 4/Project/Documents/
-C:/Users/jonpo/Uni/Year 4/Project/Gephi/
+Data/
+Images/
+Documents/
+Gephi/
 
 # User-specific files
 *.suo
