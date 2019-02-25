@@ -34,9 +34,9 @@ def load_data():
     # print('pitch range: {}'.format(pitch_range))
     
     
-    train_notes  = 'C:/Users/jonpo/Uni/Year 4/Project/Data/train_notes_1800.npy'
-    test_notes   = 'C:/Users/jonpo/Uni/Year 4/Project/Data/test_notes_200.npy'
-    train_chords = 'C:/Users/jonpo/Uni/Year 4/Project/Data/train_chords_1800.npy'
+    train_notes  = 'C:/Users/jonpo/Uni/Year 4/Project/Data/First Set/train_notes_1800.npy'
+    test_notes   = 'C:/Users/jonpo/Uni/Year 4/Project/Data/First Set/test_notes_200.npy'
+    train_chords = 'C:/Users/jonpo/Uni/Year 4/Project/Data/First Set/train_chords_1800.npy'
     
     # X_tr = np.load(train_notes)            #X_tr = np.load('your training x')
     # prev_X_tr = np.load(train_notes)        #prev_X_tr = np.load('your training prev x')
@@ -52,11 +52,6 @@ def load_data():
     prev_X_tr   = np.load(train_notes)
     y_tr        = np.load(train_chords)
     print(X_tr.shape)
-
-    # # organise chord data into 8x as much. Not needed once data is processed correctly.
-    # for i in range(np.shape(chords)[0]):
-    #     for j in range(8):
-    #         y_tr[8*i + j] = chords[i]
 
     X_tr = X_tr[:,:,:,check_range_st:check_range_ed]
     prev_X_tr = prev_X_tr[:,:,:,check_range_st:check_range_ed]
@@ -74,9 +69,9 @@ def load_data():
     return train_loader
 
 def main():
-    is_train  = 0
+    is_train  = 1
     is_draw   = 0
-    is_sample = 1
+    is_sample = 0
 
     epochs = 10
     lr = 0.0002
@@ -228,6 +223,9 @@ def main():
             average_D_x = (sum_D_x / len(train_loader.dataset))
             average_D_G_z = (sum_D_G_z / len(train_loader.dataset))
 
+            #double check that we're cycling over the whole train_loader
+            #try dividing by number of batches
+
             lossD_list.append(average_lossD)
             lossG_list.append(average_lossG)            
             D_x_list.append(average_D_x)
@@ -248,8 +246,8 @@ def main():
         torch.save(netD.state_dict(), '%s/netD_epoch_%d.pth' % ('./models', epoch))
 
     if is_draw == 1:
-        lossD_print = np.load('lossD_list.npy')
-        lossG_print = np.load('lossG_list.npy')
+        lossD_print = np.load('lossD_list_all.npy')
+        lossG_print = np.load('lossG_list_all.npy')
         length = lossG_print.shape[0]
 
         x = np.linspace(0, length-1, length)
@@ -261,7 +259,7 @@ def main():
         plt.legend(loc='upper right')
         plt.xlabel('data')
         plt.ylabel('loss')
-        plt.savefig('C:/Users/jonpo/Uni/Year 4/Project/Python/lr='+ str(lr) +'_epoch='+str(epochs)+'.png')
+        plt.savefig('C:/Users/jonpo/Uni/Year 4/Project/Generative Scripts/GAN Tweaked/MidiNet-by-pytorch-master/file/lr='+ str(lr) +'_epoch='+str(epochs)+'.png')
 
     if is_sample == 1:
         batch_size = 8
@@ -280,7 +278,7 @@ def main():
         test_loader = DataLoader(test_iter, batch_size=batch_size, shuffle=False, **kwargs)
 
         netG = sample_generator()
-        netG.load_state_dict(torch.load(r'C:\Users\jonpo\Uni\Year 4\Project\Alex contributions\MidiNet-by-pytorch-master\models\netG_epoch_9.pth'))
+        netG.load_state_dict(torch.load(r'C:/Users/jonpo/Uni/Year 4/Project/Generative Scripts/GAN Tweaked/MidiNet-by-pytorch-master/models/netG_epoch_49.pth'))
 
         output_songs = []
         output_chords = []
@@ -308,7 +306,9 @@ def main():
             print('num of output_songs: {}'.format(len(output_songs)))
             output_songs.append(list_song)
             output_chords.append(list_chord)
+        # np.save('sample.npy',sample.detach().numpy())
         np.save('output_songs.npy',np.asarray(output_songs))
+        # np.save('output_songs2.npy',output_songs.detach().numpy())
         np.save('output_chords.npy',np.asarray(output_chords))
 
         print('creation completed, check out what I make!')
@@ -317,4 +317,3 @@ def main():
 if __name__ == "__main__" :
 
     main()
-

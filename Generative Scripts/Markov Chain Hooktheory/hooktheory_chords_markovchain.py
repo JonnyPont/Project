@@ -251,7 +251,7 @@ output_id = pygame.midi.get_default_output_id()
 out_midi_device = pygame.midi.Output(output_id)
 
 ''' Generate a chord sequence following a markov chain. '''
-for chord in range(8):
+for chord in range(2):
     ''' Roulette wheel sampler '''
     seed = random.random()        
     index_for_now = bisect.bisect_left(np.cumsum(current_state),seed)-1 #Finds insertion point. I want value one before insertion point.

@@ -29,8 +29,16 @@ class sample_generator(nn.Module):
         self.h2_prev = nn.Conv2d(in_channels=16, out_channels=16, kernel_size=(2,1), stride=(2,2))
         self.h3_prev = nn.Conv2d(in_channels=16, out_channels=16, kernel_size=(2,1), stride=(2,2))
 
-        self.linear1 = nn.Linear(113,1024)
-        self.linear2 = nn.Linear(1037,self.gf_dim*2*2*1)
+        # self.linear1 = nn.Linear(113,1024)
+        # self.linear2 = nn.Linear(1037,self.gf_dim*2*2*1)
+
+        self.linear1 = nn.Sigmoid(113,1024)
+        self.linear2 = nn.Sigmoid(1037,self.gf_dim*2*2*1)
+
+        # self.sigmoid1 = nn.Sigmoid(113,1024)
+        # self.sigmoid2 = nn.Sigmoid(1037,self.gf_dim*2*2*1)
+
+        #potentially change to sigmoid
 
     def forward(self, z, prev_x, y ,batch_size,pitch_range):
 
@@ -87,8 +95,14 @@ class generator(nn.Module):
         self.h2_prev = nn.Conv2d(in_channels=16, out_channels=16, kernel_size=(2,1), stride=(2,2))
         self.h3_prev = nn.Conv2d(in_channels=16, out_channels=16, kernel_size=(2,1), stride=(2,2))
 
-        self.linear1 = nn.Linear(113,1024)
-        self.linear2 = nn.Linear(1037,self.gf_dim*2*2*1)
+        # self.linear1 = nn.Linear(113,1024)
+        # self.linear2 = nn.Linear(1037,self.gf_dim*2*2*1)
+
+        self.linear1 = nn.Sigmoid(113,1024)
+        self.linear2 = nn.Sigmoid(1037,self.gf_dim*2*2*1)
+
+        # self.sigmoid1 = nn.Sigmoid(113,1024)
+        # self.sigmoid2 = nn.Sigmoid(1037,self.gf_dim*2*2*1)
 
     def forward(self, z, prev_x, y ,batch_size,pitch_range):
 
@@ -139,8 +153,17 @@ class discriminator(nn.Module):
         #out channels = y_dim +1 
         self.h1_prev = nn.Conv2d(in_channels=27, out_channels=77, kernel_size=(4,1), stride=(2,2))
         # out channels = df_dim + y_dim
-        self.linear1 = nn.Linear(244,self.dfc_dim)
-        self.linear2 = nn.Linear(1037,1)
+        # self.linear1 = nn.Linear(244,self.dfc_dim)
+        # self.linear2 = nn.Linear(1037,1)
+
+        self.linear1 = nn.Sigmoid(244,self.dfc_dim)
+        self.linear2 = nn.Sigmoid(1037,1)
+
+        # self.linear1 = nn.Linear(244,self.dfc_dim)
+        # self.linear2 = nn.Linear(1037,1)
+
+        # self.sigmoid1 = nn.Sigmoid(244,self.dfc_dim)
+        # self.sigmoid2 = nn.Sigmoid(1037,1)
 
     def forward(self,x,y,batch_size,pitch_range):        
 
