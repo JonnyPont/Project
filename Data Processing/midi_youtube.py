@@ -73,7 +73,7 @@ while going:
 
                 if int(midi_events[0][0][0]) in [224,225,226]:#Pitch Bender
 
-                        print str(midi_events[0][0][2])#right(0)  center(64)  left(124)
+                        print(str(midi_events[0][0][2]))#right(0)  center(64)  left(124)
 
                         
 
@@ -93,7 +93,7 @@ while going:
 
 
 
-print "exit button clicked."
+print("exit button clicked.")
 
 i.close()
 

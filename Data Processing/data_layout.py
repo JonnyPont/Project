@@ -212,26 +212,26 @@ while midi_file_number<length_test:#len(scores): #mono_saved+poly_saved<200:
                 if sum(formatted_bars[midi_note][:,sixteenth_beat]) > 1:
                     monophonic = False
         
-#         #Save conditions. Saving 8 bar sections if monophonic.
-#         save_list   = [None]*8
-#         count       = 0
-#         for bar_id in range(len(formatted_bars)):
-#             #we are looping through all bars, but we want to only ever save the list when count reaches 8 and then reset
-#             save_list[bar_id%8] = formatted_bars[bar_id]
-#             count += 1
-#             #save off if 8 consecutive bars found
-#             if count%8==0:
-#                 if monophonic:
-#                     np.save('8_bar_data/monophonic_data/monophonic_8bar_'+'{}'.format(mono_saved)+'.npy',save_list)
-#                     np.save('8_bar_data/monophonic_data/chord_'+'{}'.format(mono_saved)+'.npy',current_chord)
-# #                    print('file saved')
-#                     mono_saved += 1
-#                 if not monophonic:
-#                     np.save('8_bar_data/polyphonic_data/polyphonic_8bar_'+'{}'.format(poly_saved)+'.npy',save_list)
-#                     np.save('8_bar_data/polyphonic_data/chord_'+'{}'.format(poly_saved)+'.npy',current_chord)
-#                     poly_saved += 1            
-#                 #once saved need to prepare for the next scan through
-#                 save_list=[None]*8
+        #Save conditions. Saving 8 bar sections if monophonic.
+        save_list   = [None]*8
+        count       = 0
+        for bar_id in range(len(formatted_bars)):
+            #we are looping through all bars, but we want to only ever save the list when count reaches 8 and then reset
+            save_list[bar_id%8] = formatted_bars[bar_id]
+            count += 1
+            #save off if 8 consecutive bars found
+            if count%8==0:
+                if monophonic:
+                    np.save('8_bar_data/monophonic_data/monophonic_8bar_'+'{}'.format(mono_saved)+'.npy',save_list)
+                    np.save('8_bar_data/monophonic_data/chord_'+'{}'.format(mono_saved)+'.npy',current_chord)
+#                    print('file saved')
+                    mono_saved += 1
+                if not monophonic:
+                    np.save('8_bar_data/polyphonic_data/polyphonic_8bar_'+'{}'.format(poly_saved)+'.npy',save_list)
+                    np.save('8_bar_data/polyphonic_data/chord_'+'{}'.format(poly_saved)+'.npy',current_chord)
+                    poly_saved += 1            
+                #once saved need to prepare for the next scan through
+                save_list=[None]*8
 
     with tables.open_file(msd_id_to_h5(msd_id)) as h5:
         # print('ID: {}'.format(msd_id))

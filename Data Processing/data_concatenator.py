@@ -19,20 +19,20 @@ data_length = 2000
 
 #Save off first 90% of data files as the training data.
 for loaded in tqdm(range(int(0.9*data_length))):
-    train_note_segment = np.load('8_bar_data/monophonic_data/monophonic_8bar_'+'{}'.format(loaded)+'.npy')
+    train_note_segment = np.load('E:/Jon/Data/8_bar_data/monophonic_data/monophonic_8bar_'+'{}'.format(loaded+5000)+'.npy')
     train_note_segment = train_note_segment.reshape(8,1,16,128)
     train_notes.append(train_note_segment)
     
-    train_chord_segment = np.load('8_bar_data/monophonic_data/chord_'+'{}'.format(loaded)+'.npy')
+    train_chord_segment = np.load('E:/Jon/Data/8_bar_data/monophonic_data/chord_'+'{}'.format(loaded+5000)+'.npy')
     train_chords.append(train_chord_segment)
             
 #Save off final 10% of data files as the testing data.    
 for loaded in tqdm(range(int(0.9*data_length),data_length)):
-    test_segment = np.load('8_bar_data/monophonic_data/monophonic_8bar_'+'{}'.format(loaded)+'.npy')
+    test_segment = np.load('E:/Jon/Data/8_bar_data/monophonic_data/monophonic_8bar_'+'{}'.format(loaded+5000)+'.npy')
     test_segment = test_segment.reshape(8,1,16,128)
     test_notes.append(test_segment)
     
-    test_chord_segment = np.load('8_bar_data/monophonic_data/chord_'+'{}'.format(loaded)+'.npy')
+    test_chord_segment = np.load('E:/Jon/Data/8_bar_data/monophonic_data/chord_'+'{}'.format(loaded+5000)+'.npy')
     test_chords.append(test_chord_segment)
 
 ''' This isn't currently very intelligent as the test data should probably be

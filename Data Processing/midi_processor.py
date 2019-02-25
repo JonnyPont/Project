@@ -125,6 +125,7 @@ while True:
         if midi_events[0][0] == [144, 72, 1, 0]:
             break
         
+               
         #print received midi messages and 
         for new_midi in range(len(midi_events)):
             if midi_events[new_midi][0][0] == 144: #if note on
@@ -139,7 +140,7 @@ while True:
                 print(*byte)    
             print('\n') 
         
-        arpeggiate_note_table(input_note_table,'up')
+        arpeggiate_note_table(input_note_table,'updown')
         
 
 #Close off all of the opened channels and exit the initialisations.
